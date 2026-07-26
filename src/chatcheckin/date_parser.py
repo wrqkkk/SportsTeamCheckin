@@ -104,8 +104,7 @@ def _parse_month_day(expression: str, year: int) -> date:
 
 
 def _resolve_weekday(expression: str, submission_date: date) -> date:
-    week_start = monday_of_week(submission_date)
-    return week_start + timedelta(days=WEEKDAY_MAP[expression])
+    return monday_of_week(submission_date) + timedelta(days=WEEKDAY_MAP[expression])
 
 
 def _resolve_previous_weekday(expression: str, submission_date: date) -> date:
@@ -120,11 +119,7 @@ def resolve_date_expression(
     *,
     reporting_year: Optional[int] = None,
 ) -> DateResolution:
-    """Resolve a supported date expression at the beginning of ``text``.
-
-    The matching order follows ``docs/rules.md``: full dates, month-day dates,
-    previous-week weekdays, relative days, and current-week weekdays.
-    """
+    """Resolve a supported date expression at the beginning of ``text``."""
 
     candidate = text.lstrip()
     match = DATE_EXPRESSION_PATTERN.match(candidate)
